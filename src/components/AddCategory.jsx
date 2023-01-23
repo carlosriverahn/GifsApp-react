@@ -1,15 +1,16 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const AddCategory = ({ onChangeValue }) => {
 	const [inputValue, setInputValue] = useState('');
-	const onInputChage = (event) => {
+	const onInputChage = ({ target }) => {
 		// console.log(event);
-		setInputValue(event.target.value);
+		setInputValue(target.value);
 	};
 
 	const onSubmit = (event) => {
 		event.preventDefault(event);
-		if (inputValue.length <= 1) {
+		if (inputValue.trim().length <= 1) {
 			return;
 		}
 
@@ -17,7 +18,7 @@ export const AddCategory = ({ onChangeValue }) => {
 		setInputValue('');
 	};
 	return (
-		<form onSubmit={onSubmit}>
+		<form onSubmit={onSubmit} aria-label="form">
 			<input
 				type="text"
 				placeholder="Search gifs"
@@ -26,4 +27,8 @@ export const AddCategory = ({ onChangeValue }) => {
 			/>
 		</form>
 	);
+};
+
+AddCategory.propTypes = {
+	onChangeValue: PropTypes.func.isRequired,
 };
